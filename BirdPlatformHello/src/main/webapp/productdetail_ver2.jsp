@@ -291,7 +291,7 @@
                                                 <p>${feedback.getAccount().getUsername()}</p>
                                                 <div class="start">
                                                     <span>${feedback.getStar()}</span>
-                                                    <img src="" alt="" />
+                                                    <i class="fas fa-star"></i>
 
                                                 </div>
                                                 <p>${feedback.getPublishedDate()}</p>

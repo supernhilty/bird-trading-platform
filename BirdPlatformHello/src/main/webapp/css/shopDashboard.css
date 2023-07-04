@@ -1,0 +1,148 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 21, 2023, 12:43:09 PM
+    Author     : Minh Quan
+*/
+
+/* ---------- MAIN ---------- */
+
+.main-title {
+  display: grid;
+   grid-template-columns: 1fr;
+  justify-content: center;
+  border-radius: var(--card-border-radius);
+  background: #fff;
+}
+
+.main-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+.insights{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+}
+.insights > div{
+  background: #fff;
+  padding: var(--card-padding-1);
+  border-radius: var(--card-border-radius);
+  margin-top: 1rem;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+.insights > div:hover{
+  box-shadow: none;
+}
+.insights > div span{
+  background: var(--color-primary);
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--color-white);
+  font-size: 2rem;
+}
+.insights > div.orders span{
+  background-color: coral;
+}
+.insights > div.income span{
+  background-color: rgb(142, 238, 154);
+}
+.insights > div .middle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.insights h3{
+  margin: 1rem 0 0.6rem;
+  font-size: 1rem;
+}
+.insights .progress{
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%; 
+}
+.insights svg{
+  width: 7rem;
+  height: 7rem;
+}
+.insights svg circle{
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 14;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+  stroke-dasharray: 110;
+  stroke-dashoffset: 92;
+}
+.insights .progress .number{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.charts-card {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 25px;
+  box-sizing: border-box;
+  -webkit-column-break-inside: avoid;
+  border-radius: 5px;
+  box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+}
+.apexcharts-text tspan{
+    fill: black;
+}
+.chart-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rounded-circle {
+    border-radius: 50%;
+}
+.img-table {
+    width: 100px;
+    height: 100px;
+    margin-left: 70px;
+}
+.text-center{
+    text-align: center;
+}
+.shop-details{
+    padding: 2.5rem;
+}
+.shop-information{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+.income-charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 60px;
+}
+.shop-begin{
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr;
+    gap: 20px;
+  margin-top: 60px;
+}

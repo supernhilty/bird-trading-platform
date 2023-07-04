@@ -1,0 +1,147 @@
+/* PC */
+
+@media (min-width: 1024px) {
+  .header-md {
+    display: none;
+  }
+}
+
+/* Tablet & Mobile */
+
+@media (max-width: 1023px) {
+  .header_pc {
+    display: none;
+  }
+
+  .header-md {
+    display: block;
+  }
+  .navbar-search {
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar-search form {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .navbar-search__input {
+    margin: 1rem 2rem 0 0;
+    width: 80%;
+  }
+
+  .account-form {
+    margin: 0 auto;
+  }
+
+  .order-container {
+    padding: 0 2rem;
+  }
+
+  .about-desc {
+    padding: 0;
+  }
+
+  .navbar__link__logout {
+    display: block;
+  }
+
+  .shoptitle-item__logout {
+    display: none;
+  }
+
+  .info-sub-rs {
+    display: none;
+  }
+
+  .info {
+    justify-content: flex-end;
+  }
+  .product-item {
+    margin: 5rem;
+  }
+  .logo,
+  .header-container {
+    padding: 0 10px;
+  }
+  .list-component {
+    padding: 0 10px;
+  }
+  .category-title {
+    padding: 0 15px;
+    margin: 0;
+  }
+  .category-list {
+    padding: 0 10px;
+  }
+  .desc-img-home {
+    margin: 2rem 0 0 0 !important;
+    padding: 0 !important;
+  }
+  .list-item a {
+    margin: 0;
+    /* padding: 0; */
+  }
+}
+
+/* Tablet */
+
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+/* Mobile */
+
+@media (max-width: 740px) {
+  .header_pc {
+    display: none;
+  }
+
+  .shoptitle-item__logout {
+    display: none;
+  }
+
+  .bar-icon {
+    display: block;
+  }
+
+  .navbar__monshop {
+    display: none;
+  }
+
+  .shoptitleh3,
+  .detail-title h5 {
+    display: none;
+  }
+
+  .detail-title {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .shop-btn {
+    display: block;
+    width: 100%;
+    margin: 0 0 1rem 0;
+  }
+.admin-btn{
+  margin-top: 1rem !important;
+  text-align: center;
+}
+  .shoptitle-btn {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+  }
+  .search{
+    width: 100%;
+  }
+  .cart-money{
+    padding: 0;
+  }
+  .cart-information input{
+    width: 100%;
+  }
+}

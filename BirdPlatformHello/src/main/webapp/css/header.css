@@ -1,0 +1,170 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 26, 2023, 10:13:10 PM
+    Author     : Minh Quan
+*/
+:root{
+  --color-shadow: rgba(0, 0, 0, 0.35);
+  --color-primary: #7380ec;
+  --color-white: #fff;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-1: 0.8rem;
+  --border-radius-1: 1.2rem;
+
+  --card-padding-1: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0.2rem 3rem var(--color-shadow);
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0e8e4;
+  color: #9e9ea4;
+  font-family: "Montserrat", sans-serif;
+}
+
+.material-icons-outlined {
+  vertical-align: middle;
+  line-height: 1px;
+  font-size: 35px;
+}
+
+/* ---------- HEADER ---------- */
+.profile-user{
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   overflow: hidden;
+   cursor: pointer;
+   position: relative;
+}
+.user-name{
+    color: #333;
+    text-align: center;
+    padding-right: 20px;
+}
+.profile-user img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.account-menu{
+  position: absolute;
+  top: 80px;
+  right: 25px;
+  padding: 10px 10px;
+  background: #ffffff;
+  width: 200px;
+  box-sizing:0 5px 25px rgba(0,0,0,0.1) ;
+  border-radius: 15px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+}
+.account-menu.active{
+  visibility: visible;
+  opacity: 1;
+}
+.account-menu::before{
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 25px;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  transform: rotate(45deg);
+}
+.account-menu span{
+  font-size: 30px;
+  color: rgb(94 71 62);
+  font-weight: 400;
+}
+.account-menu ul li{
+  list-style: none;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  direction: flex;
+  align-items: center;
+}
+.account-menu .ul li img{
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: 0.5s;
+}
+.account-menu .ul li:hover img{
+  opacity: 1;
+}
+.account-menu .ul li a{
+  display: inline-block;
+  text-decoration: none;
+  color: rgb(94 71 62);
+  font-weight: 500;
+  transition: 0.5s;
+}
+.account-menu .ul li:hover a{
+  color: #cc2162;
+}
+.navbar-list li a{
+    color: rgb(94 71 62);
+    font-size: 20px;
+    text-align: center;
+}
+.date{
+  background-color: var(--color-primary);
+  font-size: 25px ;
+  vertical-align: middle;
+  line-height: 1px;
+  font-size: 35px;
+}
+.menu-icon {
+  display: none;
+}
+#content nav form .form-input {
+	display: flex;
+	align-items: center;
+	height: 36px;
+}
+#content nav form .form-input input {
+	flex-grow: 1;
+	padding: 0 16px;
+	height: 100%;
+	border: none;
+	background: var(--grey);
+	border-radius: 36px 0 0 36px;
+	outline: none;
+	width: 100%;
+	color: var(--dark);
+}
+#content nav form .form-input button {
+	width: 36px;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--blue);
+	color: var(--light);
+	font-size: 18px;
+	border: none;
+	outline: none;
+	border-radius: 0 36px 36px 0;
+	cursor: pointer;
+}
+@media screen and (max-width: 992px) {
+  
+  .menu-icon {
+    display: inline;
+  }
+
+}

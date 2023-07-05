@@ -63,7 +63,21 @@
                 <h3>Status </h3>
                 <div class="user__details">
                     <span class="bolds">Status</span><span class="bold"> ${requestScope.order.getStatus()}</span>
-                    <span > Đơn vị vận chuyển đã nhận sản phẩm.</span>
+                    <c:choose>
+                        <c:when test="${requestScope.order.getStatus()=='Completed'}">
+                            <span > Order completed, thank for choosing us.</span>
+                        </c:when>
+                        <c:when test="${requestScope.order.getStatus()=='Pending'}">
+                            <span > Your order will be processed as soon as possible.</span>
+                        </c:when>
+                        <c:when test="${requestScope.order.getStatus()=='Cancel'}">
+                            <span > Your order has been cancelled due to system reasons. We apologize for any inconvenience caused.</span>
+                        </c:when>
+                        <c:when test="${requestScope.order.getStatus()=='Confirmed'}">
+                            <span > Your order is being shipped.</span>
+                        </c:when>
+                    </c:choose>
+
                 </div>
             </div>
         </section>

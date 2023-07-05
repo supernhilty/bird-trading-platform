@@ -10,7 +10,7 @@ package com.birdtradingplatform.model;
  */
 public class OrderDetailItem extends OrderDetail{
     Product product;
-
+    
     public OrderDetailItem(Product product) {
         this.product = product;
     }

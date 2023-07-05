@@ -5,6 +5,7 @@
 package com.birdtradingplatform.controller;
 
 import com.birdtradingplatform.dao.CustomerDAO;
+import com.birdtradingplatform.dao.FeedbackDAO;
 import com.birdtradingplatform.dao.OrderDAO;
 import com.birdtradingplatform.dao.ShopDAO;
 import com.birdtradingplatform.model.Account;
@@ -13,12 +14,14 @@ import com.birdtradingplatform.model.Cart;
 import com.birdtradingplatform.model.Customer;
 import com.birdtradingplatform.model.Item;
 import com.birdtradingplatform.model.MutilShopCart;
+import com.birdtradingplatform.model.OrderDetailFeedback;
 
 import com.birdtradingplatform.model.OrderDetailItem;
 import com.birdtradingplatform.model.OrderHistory;
 import com.birdtradingplatform.model.Shop;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -72,10 +75,10 @@ public class OrderController extends HttpServlet {
                 curPage = 1;
             }
             OrderDAO odao = new OrderDAO();
-            
+
             List<OrderHistory> orderList = odao.getOrderHistory(customer.getCustomerID(), status, curPage, limit);
             int total = odao.getOrderHistoryCount(customer.getCustomerID(), status).size();
-            int totalpage= (int) Math.ceil((double) total / (double) limit);
+            int totalpage = (int) Math.ceil((double) total / (double) limit);
             request.setAttribute("ORDER_LIST", orderList);
             request.setAttribute("totalpage", totalpage);
             request.setAttribute("currentpage", curPage);
@@ -150,11 +153,32 @@ public class OrderController extends HttpServlet {
             }
         } else if ("orderdetail".equals(action)) {
             int orderID = Integer.parseInt(request.getParameter("orderID"));
+
+            HttpSession session = request.getSession();
+            Account account = (Account) session.getAttribute("dto");
+
             OrderDAO odao = new OrderDAO();
             List<OrderDetailItem> orderDetailList = odao.getOrderDetailList(orderID);
-            request.setAttribute("orderDetailList", orderDetailList);
 
+            FeedbackDAO fdao = new FeedbackDAO();
+            List<OrderDetailFeedback> list = new ArrayList<>();
+            for (OrderDetailItem orderDetail : orderDetailList) {
+                OrderDetailFeedback odetail
+                        = new OrderDetailFeedback(
+                                fdao.hasFeedbacked(account.getAccountID(), orderDetail.getProduct().getProductID(),orderDetail.getOrderDetailID()),
+                                orderDetail.getProduct(),
+                                orderDetail.getOrderDetailID(),
+                                orderDetail.getQuantity(),
+                                orderDetail.getPrice(),
+                                orderDetail.getProductID(),
+                                orderDetail.getOrderID());
+                list.add(odetail);
+            }
+            request.setAttribute("orderDetailList", list);
+            
             OrderHistory order = odao.getOrderHistory(orderID);
+            boolean hasCompleted = order.getStatus().equalsIgnoreCase("Completed");
+            request.setAttribute("hasCompleted", hasCompleted);
             request.setAttribute("order", order);
             ShopDAO sdao = new ShopDAO();
             Shop shop = sdao.getShop(order.getShopID() + "");

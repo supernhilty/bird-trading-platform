@@ -41,7 +41,7 @@
         <link rel="stylesheet" href="css/checkout.css"/>
     </head>
     <body>
-    <%@include file="pageHeader.jsp" %>
+        <%@include file="pageHeader.jsp" %>
 
         <!-- user info -->
 
@@ -73,11 +73,13 @@
 
 
         <section class="checkout-cart">
-            <div class="shop-wrapper">
+            <div style="width: 96%;
+                 margin-left: 2%;" class="shop-wrapper">
                 <h3 class="shop-name">${requestScope.shop.getShopName()}</h3>
             </div>
 
-            <div class="table-wrapper">
+            <div style="width: 96%;
+                 margin-left: 2%;" class="table-wrapper">
                 <table class="cart-table">
                     <thead>
                         <tr>
@@ -86,7 +88,9 @@
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Amount</th>
-                            <th>Feedback</th>
+                                <c:if test="requestScope.hasCompleted}">
+                                <th>Feedback</th>
+                                </c:if>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,14 +104,19 @@
                                 <td>$${orderdetail.getPrice()}</td>
                                 <td>${orderdetail.getQuantity()}</td>
                                 <td>$${orderdetail.getPrice()*orderdetail.getQuantity()}</td>
-                                <td >
-                                    <a style="  padding: 20%; background-color: inherit;" id="AddnewFeedback" onclick="showAddFBForm()">
-                                        <i class="fa-regular fa-comment"></i>
-                                    </a>
-                                </td>
+
+                                <c:if test="${orderdetail.isHasFeedbacked()!=true && requestScope.hasCompleted}">
+                                    <td >
+                                        <a style="  padding: 20%; background-color: inherit;" id="AddnewFeedback" onclick="showAddFBForm()">
+                                            <i class="fa-regular fa-comment"></i>
+                                        </a>
+                                    </td>
+                                </c:if>
+
                             </tr>
                             <!--Add new feedback Form-->
 
+                            <input type="hidden" name="orderDetailID"  value="${orderdetail.getOrderDetailID()}"/>
                             <input type="hidden" name="productID"  value="${orderdetail.getProduct().getProductID()}"/>
                             <input type="hidden" name="action"  value="orderdetail"/>
                             <input type="hidden" name="orderID"  value="${requestScope.order.getOrderID()}"/>
@@ -116,7 +125,7 @@
                                 <span style="font-size: 16px;">${orderdetail.getProduct().getProductName()}</span> <br>
 
                                 <input  id="photo" type="file" class="file-uploader pull-left">
-                                <span class="order" id="upload" onclick="uploadImage()" type="see-update " class="button-img-see">Click to upload image</span>
+                                <span style="cursor: pointer;" class="order" id="upload" onclick="uploadImage()" type="see-update " class="button-img-see">Upload image</span>
                                 <br>
                                 <img name="img" id="image" src="" alt="">
 
@@ -136,11 +145,11 @@
                                     <label for="rate5">5 stars</label>
                                     <span class="focus-ring"></span>
                                 </fieldset>
-                                <textarea style="border: 1px solid black;" name="detail" id="" cols="120" rows="8"></textarea>
+                                <textarea style="border: 1px solid black;" name="detail" id="" cols="80" rows="8"></textarea>
                                 <div class="buttonforForm">
 
                                     <input class="order" type="submit" value="Create Feedback">
-                                    <span class="order" id="CancelAddFBform">Cancel</span>
+                                    <span style="cursor: pointer;" onclick="HiddenAddFBForm()" class="order" id="CancelAddFBform">Cancel</span>
                                 </div>
 
                             </div>
@@ -167,7 +176,7 @@
 
         </div>
     </section>
-    
+
     <!-- cart end -->
 
 
@@ -176,58 +185,57 @@
 
     <!-- footer section end  -->
 
-    <script src="js/addNewFeedback.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
     <script>
 
-         //paste here your copied configuration code
-         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-         const firebaseConfig = {
-             apiKey: "AIzaSyAPxUPHQ097kVS0w7d75aTDgSrw2x8h_A4",
-             authDomain: "test-a702c.firebaseapp.com",
-             projectId: "test-a702c",
-             storageBucket: "test-a702c.appspot.com",
-             messagingSenderId: "223272196716",
-             appId: "1:223272196716:web:1981304529652ea90e5649",
-             measurementId: "G-JYVDGB4N0T"
-         };
+                                        //paste here your copied configuration code
+                                        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                                        const firebaseConfig = {
+                                            apiKey: "AIzaSyAPxUPHQ097kVS0w7d75aTDgSrw2x8h_A4",
+                                            authDomain: "test-a702c.firebaseapp.com",
+                                            projectId: "test-a702c",
+                                            storageBucket: "test-a702c.appspot.com",
+                                            messagingSenderId: "223272196716",
+                                            appId: "1:223272196716:web:1981304529652ea90e5649",
+                                            measurementId: "G-JYVDGB4N0T"
+                                        };
 
-         // Initialize Firebase
-         firebase.initializeApp(firebaseConfig);
-         console.log(firebase);
-         function uploadImage() {
-             const ref = firebase.storage().ref();
-             const file = document.querySelector("#photo").files[0];
-             const name = +new Date() + "-" + file.name;
-             const metadata = {
-                 contentType: file.type
-             };
-             const task = ref.child(name).put(file, metadata);
-             task
-                     .then(snapshot => snapshot.ref.getDownloadURL())
-                     .then(url => {
-                         console.log(url);
-                         alert('image uploaded successfully');
-                         document.querySelector("#image").src = url;
+                                        // Initialize Firebase
+                                        firebase.initializeApp(firebaseConfig);
+                                        console.log(firebase);
+                                        function uploadImage() {
+                                            const ref = firebase.storage().ref();
+                                            const file = document.querySelector("#photo").files[0];
+                                            const name = +new Date() + "-" + file.name;
+                                            const metadata = {
+                                                contentType: file.type
+                                            };
+                                            const task = ref.child(name).put(file, metadata);
+                                            task
+                                                    .then(snapshot => snapshot.ref.getDownloadURL())
+                                                    .then(url => {
+                                                        console.log(url);
+                                                        alert('image uploaded successfully');
+                                                        document.querySelector("#image").src = url;
 
-                         if (url != "") {
-                             document.querySelector("#inputTag").value = url;
-                             document.querySelector("#inputTag").placeholder = url;
-                         }
+                                                        if (url != "") {
+                                                            document.querySelector("#inputTag").value = url;
+                                                            document.querySelector("#inputTag").placeholder = url;
+                                                        }
 
-                         var element = document.querySelector("#NeedHide");
-                         element.style.display = "none";
+                                                        var element = document.querySelector("#NeedHide");
+                                                        element.style.display = "none";
 
 
-                     })
-                     .catch(console.error);
-         }
-         const errorMsgElement = document.querySelector('span#errorMsg');
+                                                    })
+                                                    .catch(console.error);
+                                        }
+                                        const errorMsgElement = document.querySelector('span#errorMsg');
     </script>
 
 
-<%@include file="pageFooter.jsp" %>
+    <%@include file="pageFooter.jsp" %>
     <script src="js/script.js"></script>
 </body>
 </html>

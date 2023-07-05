@@ -238,20 +238,21 @@ public class FeedbackDAO {
         return list;
     }
 
-    public int createFeedback(String img, int star, String detail, String productID, int accountID) throws SQLException {
+    public int createFeedback(String img, int star, String detail, String productID, int accountID, String orderDetailID) throws SQLException {
         Connection con = null;
         PreparedStatement pstm = null;
         int row = 0;
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "insert into [Feedback](img, star, detail, productID, accID) values (?,?,?,?,?)";
+                String sql = "insert into [Feedback](img, star, detail, productID, accID, orderDetailID) values (?,?,?,?,?,?)";
                 pstm = con.prepareStatement(sql);
                 pstm.setString(1, img);
                 pstm.setInt(2, star);
                 pstm.setString(3, detail);
                 pstm.setString(4, productID);
                 pstm.setInt(5, accountID);
+                pstm.setString(6, orderDetailID);
                 row = pstm.executeUpdate();
             }
         } catch (Exception e) {
@@ -265,6 +266,40 @@ public class FeedbackDAO {
             }
         }
         return row;
+    }
+
+    public boolean hasFeedbacked(int accountID, int productID, int orderDetailID) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        boolean check = false;
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "select * from [Feedback] where orderDetailID= ? and ([productID] = ? and [accID] = ?)";
+                pstm = con.prepareStatement(sql);
+                pstm.setInt(1, orderDetailID);
+                pstm.setInt(2, productID);
+                pstm.setInt(3, accountID);
+               rs = pstm.executeQuery();
+                if(rs.next()){
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
     }
 
 }

@@ -3005,12 +3005,10 @@ check out start */
     margin-top: 5px;
 }
 
-
-/* add new feedback*/
 #AddFBform{
-    z-index: 10;
+    margin-top: 50px;
     padding-top: 10px;
-    width: 60%;
+    width: 40%;
     display: none;
     position: fixed;
     top: 10%;
@@ -3031,9 +3029,9 @@ check out start */
     margin-right: 20px;
 }
 
-#AddFBform #image{
+#AddFBform #image {
+    margin-top: 10px;
     position: absolute;
-    width: 100px;
 }
 #AddFBform form{
     padding-top: 42px;

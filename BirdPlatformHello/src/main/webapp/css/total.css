@@ -2153,6 +2153,12 @@ check out start */
     color: white;
     font-size: 1.6rem;
 }
+.order :hover{
+    cursor: pointer;
+}
+.order span:hover{
+    cursor: pointer;
+}
 /* check out end  */
 
 /* product detail */

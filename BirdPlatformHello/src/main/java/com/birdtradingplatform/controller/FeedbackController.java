@@ -44,6 +44,7 @@ public class FeedbackController extends HttpServlet {
 
      
             String detail = request.getParameter("detail");
+            String orderDetailID = request.getParameter("orderDetailID");
             if(detail==null){
                 detail="";
             }
@@ -63,7 +64,7 @@ public class FeedbackController extends HttpServlet {
             //get account login in this session with attribute name is LOGIN_ACCOUNT
             Account account = (Account) session.getAttribute("dto");
             FeedbackDAO fdao = new FeedbackDAO();
-            int row = fdao.createFeedback(img, star, detail, productID, account.getAccountID());
+            int row = fdao.createFeedback(img, star, detail, productID, account.getAccountID(),orderDetailID);
             request.getRequestDispatcher("order").forward(request, response);
         
     }

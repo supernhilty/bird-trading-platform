@@ -16,8 +16,21 @@ public class Feedback {
     private int productID;
     private int accID;
     private String publishedDate;
+    private int orderDetailID;
     public Feedback() {
     }
+
+    public Feedback(int feedbackID, String img, int star, String detail, int productID, int accID, String publishedDate, int orderDetailID) {
+        this.feedbackID = feedbackID;
+        this.img = img;
+        this.star = star;
+        this.detail = detail;
+        this.productID = productID;
+        this.accID = accID;
+        this.publishedDate = publishedDate;
+        this.orderDetailID = orderDetailID;
+    }
+    
 
     public Feedback(int feedbackID, String img, int star, String detail, int productID, int accID, String publishedDate) {
         this.feedbackID = feedbackID;
@@ -84,5 +97,14 @@ public class Feedback {
     public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
     }
+
+    public int getOrderDetailID() {
+        return orderDetailID;
+    }
+
+    public void setOrderDetailID(int orderDetailID) {
+        this.orderDetailID = orderDetailID;
+    }
+    
     
 }

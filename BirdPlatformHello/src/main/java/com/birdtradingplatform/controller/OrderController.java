@@ -140,6 +140,7 @@ public class OrderController extends HttpServlet {
                 String mess = "You ordered succeed. Your order will be processed as soon as possible";
                 request.setAttribute("message", mess);
                 session.setAttribute("checkoutMap", null);
+                            request.setAttribute("done", "done");
 
                 if (allShopCart != null) {
 

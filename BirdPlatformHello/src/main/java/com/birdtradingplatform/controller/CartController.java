@@ -57,8 +57,9 @@ public class CartController extends HttpServlet {
             MutilShopCart allShopCart = (MutilShopCart) session.getAttribute("allShopCart");
 
             if (allShopCart != null) {
-                allShopCart.deleteMutilShop(product);
+
                 try {
+                    allShopCart.deleteMutilShop(product);
                     for (Map.Entry<Integer, Cart> entry : allShopCart.getMutilShopCart().entrySet()) {
                         Integer key = entry.getKey();
                         Cart cart = entry.getValue();
@@ -95,12 +96,19 @@ public class CartController extends HttpServlet {
             if (allShopCart == null) {
                 allShopCart = new MutilShopCart();
             }
-            allShopCart.addMutilShop(item);
+            String message;
+            try {
+                allShopCart.addMutilShop(item);
+                message = "Add " + quantity + " " + product.getProductName() + " successfully!";
+
+            } catch (Exception e) {
+                message = e.getMessage();
+
+            }
 //          Integer i = (Integer) (allShopCart.getMutilShopCart().values().toArray())[0];
             session.setAttribute("allShopCart", allShopCart);
             //session.setAttribute("cartlist", Cart.getItemlist(cart));
 
-            String message = "Add " + quantity + " " + product.getProductName() + " successfully!";
             session.setAttribute("totalprice", allShopCart.getTotalMoneyAllShop());
             session.setAttribute("totalquantity", allShopCart.getTotalCountAllShop());
             request.setAttribute("addmessage", message);
@@ -130,14 +138,22 @@ public class CartController extends HttpServlet {
 //                    item.setQuantity(quantity);
 //                }
 //            }
-            allShopCart.updateMutilShop(product, new Item(product, quantity));
+            String message;
+            try {
+                allShopCart.updateMutilShop(product, new Item(product, quantity));
+
+            } catch (Exception e) {
+                message = e.getMessage();
+                request.setAttribute("message", message);
+
+            }
 
             session.setAttribute("allShopCart", allShopCart);
             session.setAttribute("totalprice", allShopCart.getTotalMoneyAllShop());
             session.setAttribute("totalquantity", allShopCart.getTotalCountAllShop());
             //session.setAttribute("cartlist", Cart.getItemlist(cart));
             request.getRequestDispatcher("cartview.jsp").forward(request, response);
-        }else if ("Check-out".equals(action)){
+        } else if ("Check-out".equals(action)) {
             request.getRequestDispatcher("checkout").forward(request, response);
         }
     }

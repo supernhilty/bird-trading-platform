@@ -44,7 +44,7 @@ public class MutilShopCart {
         return new ArrayList<>(cart);
     }
 
-    public void addMutilShop(Item item) {
+    public void addMutilShop(Item item) throws Exception {
         if (this.mutilShopCart == null) {
             this.mutilShopCart = new HashMap<>();
         }
@@ -75,7 +75,7 @@ public class MutilShopCart {
         }
     }
 
-    public void updateMutilShop(Product product, Item newItem) {
+    public void updateMutilShop(Product product, Item newItem) throws Exception {
         if (this.mutilShopCart == null) {
             return;
         }

@@ -88,7 +88,7 @@
 
                                                     <input type="checkbox" name="checkoutlist" value="${item.getProduct().getProductID()}"/>
                                                     <img src="${item.getProduct().getImg()}" alt="" />
-                                                    <p>${item.getProduct().getProductName()} </p>
+                                                    <p>${item.getProduct().getProductName()}(<strong>${requestScope.message}</strong>)</p>
                                                 </div>
                                                 <div class="flex-dis">
                                                     <div class="shop__product--description">

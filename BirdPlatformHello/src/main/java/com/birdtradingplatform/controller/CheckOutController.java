@@ -46,7 +46,7 @@ public class CheckOutController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException, NamingException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException, NamingException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         String chooseaddress = (String) request.getAttribute("chooseaddress");
@@ -154,13 +154,7 @@ public class CheckOutController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CheckOutController.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NamingException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -185,6 +179,8 @@ public class CheckOutController extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
+            Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

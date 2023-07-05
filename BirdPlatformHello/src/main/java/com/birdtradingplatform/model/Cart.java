@@ -39,13 +39,16 @@ public class Cart {
         this.cart = cart;
     }
 
-    public void add(Item item) {
+    public void add(Item item) throws Exception {
         if (this.cart == null) {
             this.cart = new HashMap<>();
         }
         if (this.cart.containsKey(item.getProduct().getProductID())) {
             int currentQuantity = this.cart.get(item.getProduct().getProductID()).getQuantity();
             item.setQuantity((currentQuantity + item.getQuantity()));
+            if(item.getQuantity()>item.getProduct().getQuantity()){
+                throw new Exception("Only " + item.getProduct().getQuantity() + " products available!");
+            }
         }
         cart.put(item.getProduct().getProductID(), item);
     }
@@ -62,9 +65,12 @@ public class Cart {
         }
     }
 
-    public void update(int id, Item newItem) {
+    public void update(int id, Item newItem) throws Exception {
         if (this.cart == null) {
             return;
+        }
+        if(newItem.getQuantity()>newItem.getProduct().getQuantity()){
+            throw new Exception("Only " + newItem.getProduct().getQuantity() + " products available!");
         }
         if (this.cart.containsKey(id)) {
             this.cart.replace(id, newItem);

@@ -17,19 +17,19 @@
 
 
         <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+            href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css"
+            rel="stylesheet"
+            />
 
-    <!-- font awesome cdn link  -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+        <!-- font awesome cdn link  -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-   
+
+
         <!-- custom css file link  -->
         <link rel="stylesheet" href="css/checkout.css" />
     </head>
@@ -60,7 +60,10 @@
                                 <span>${requestScope.addressShipment.detail}</span>
                             </div>
                         </div>
-                        <button class="show-btn" onclick="showAddressModal()">Change</button>
+                        <c:if test="${requestScope.done!='done'}">
+                            <button class="show-btn" onclick="showAddressModal()">Change</button>
+
+                        </c:if>
 
                     </div>
 
@@ -80,22 +83,22 @@
                 <c:if test="${requestScope.addressShipmentList!=null}">
                     <c:if test="${not empty requestScope.addressShipmentList}">
                         <div class="users__details">
-                             <form action="address">
-                            <c:forEach var="address" items="${requestScope.addressShipmentList}">
-                               
-                                <input type="radio"  name="addressShipID" value="${address.getAddressShipID()}"/>
-                                <span class="bold" id="userInfoUsername" style="margin-top: 0px;">${account.username}</span>
-                                <span class="infolight" id="userInfoPhone">${address.getPhoneShipment()}</span>                                
-                                <div id="userInfoAddress" class="infolight">
-                                    <span>${address.getDistrict()}, ${address.getProvince()}</span><br>
-                                    <span>${address.getDetail()}</span>
-                                </div>
-                                    <br>
-                                
+                            <form action="address">
+                                <c:forEach var="address" items="${requestScope.addressShipmentList}">
 
-                            </c:forEach>
-                                    <span class="add-btn" onclick="AddAddressModal()">Add New Address</span>
-                            
+                                    <input type="radio"  name="addressShipID" value="${address.getAddressShipID()}"/>
+                                    <span class="bold" id="userInfoUsername" style="margin-top: 0px;">${account.username}</span>
+                                    <span class="infolight" id="userInfoPhone">${address.getPhoneShipment()}</span>                                
+                                    <div id="userInfoAddress" class="infolight">
+                                        <span>${address.getDistrict()}, ${address.getProvince()}</span><br>
+                                        <span>${address.getDetail()}</span>
+                                    </div>
+                                    <br>
+
+
+                                </c:forEach>
+                                <span class="add-btn" onclick="AddAddressModal()">Add New Address</span>
+
                         </div>
                     </c:if>
                 </c:if>
@@ -140,139 +143,139 @@
                     <input type="hidden" name="action" value="addaddress"/>
                     <div id="btn">
                         <button class="save-btn" type="submit" onclick="updateUserInfo()">Save</button>
-                        
+
                 </form>
-                    <span class="cancel-btn" onclick="hideAddAddressModal()">Cancel</span>
-                    </div>
+                <span class="cancel-btn" onclick="hideAddAddressModal()">Cancel</span>
             </div>
         </div>
+    </div>
 
 
-        <!-- user info end -->
-        <!-- cart start -->
+    <!-- user info end -->
+    <!-- cart start -->
 
-        <form action="order" method="POST">
-            <c:if test="${sessionScope.checkoutMap!=null}">
-                <c:if test="${ not empty sessionScope.checkoutMap}">
-                    <c:if test="${sessionScope.checkoutMap.getMutilShopCart().values()!=null}">
-                        <c:if test="${not empty sessionScope.checkoutMap.getMutilShopCart().values()}">
+    <form action="order" method="POST">
+        <c:if test="${sessionScope.checkoutMap!=null}">
+            <c:if test="${ not empty sessionScope.checkoutMap}">
+                <c:if test="${sessionScope.checkoutMap.getMutilShopCart().values()!=null}">
+                    <c:if test="${not empty sessionScope.checkoutMap.getMutilShopCart().values()}">
 
-                            <section class="checkout-cart">
-                                <div class="cart-head">
-                                    <p class="name-product">Product</p>
-                                    <div class="cart-head_description">
-                                        <p>type</p>
-                                        <p>price</p>
-                                        <p>quantity</p>
-                                        <p>amount</p>
-                                    </div>
+                        <section class="checkout-cart">
+                            <div class="cart-head">
+                                <p class="name-product">Product</p>
+                                <div class="cart-head_description">
+                                    <p>type</p>
+                                    <p>price</p>
+                                    <p>quantity</p>
+                                    <p>amount</p>
                                 </div>
-                                <c:set var="shipFee" value="0"></c:set>
-                                <c:forEach var="checkoutshop" items="${sessionScope.checkoutMap.getMutilShopCart().values()}">
-                                    <c:if test="${checkoutshop.getCart().values()!=null}">
-                                        <c:if test="${not empty checkoutshop.getCart().values()}">
-                                            <div class="shop">
-                                                <h3 class="shop__name">${(checkoutshop.getCart().values().toArray())[0].getProduct().getShop().getShopName()}</h3>
-                                                <c:forEach var="item" items="${checkoutshop.getCart().values()}">
-                                                    <c:set var="shipFee" value="${pageScope.shipFee+5}"></c:set>
-                                                        <div class="shop__product">
-                                                            <div class="line"></div>
-                                                            <div class="shop__product--name">
+                            </div>
+                            <c:set var="shipFee" value="0"></c:set>
+                            <c:forEach var="checkoutshop" items="${sessionScope.checkoutMap.getMutilShopCart().values()}">
+                                <c:if test="${checkoutshop.getCart().values()!=null}">
+                                    <c:if test="${not empty checkoutshop.getCart().values()}">
+                                        <div class="shop">
+                                            <h3 class="shop__name">${(checkoutshop.getCart().values().toArray())[0].getProduct().getShop().getShopName()}</h3>
+                                            <c:forEach var="item" items="${checkoutshop.getCart().values()}">
+                                                <c:set var="shipFee" value="${pageScope.shipFee+5}"></c:set>
+                                                    <div class="shop__product">
+                                                        <div class="line"></div>
+                                                        <div class="shop__product--name">
 
-                                                                <img src="${item.getProduct().getImg()}" alt="" />
-                                                            <p>${item.getProduct().getProductName()} </p>
-                                                        </div>
-                                                        <div class="flex-dis">
-                                                            <div class="shop__product--description">
-                                                                <p class="mg-top">${item.getProduct().getCategory()}</p>
-                                                                <p class="mg-top">$${item.getProduct().getPriceOut()*item.getProduct().getpSale()}</p>
-                                                                <p>${item.getQuantity()}</p>
-                                                                <p class="mg-top">$${item.getProduct().getPriceOut()*item.getProduct().getpSale()
-                                                                                     *item.getQuantity()}</p>
-                                                            </div>
-                                                        </div>
+                                                            <img src="${item.getProduct().getImg()}" alt="" />
+                                                        <p>${item.getProduct().getProductName()} </p>
                                                     </div>
-                                                </c:forEach>
-
-
-                                                <div class="notice">
-                                                   
-                                                    <div class="ip-checkout">
-                                                        <span>Total (${checkoutshop.getTotalCount()} products): </span>
-                                                        <span class="total">${checkoutshop.getTotalMoney()}$</span>
-
+                                                    <div class="flex-dis">
+                                                        <div class="shop__product--description">
+                                                            <p class="mg-top">${item.getProduct().getCategory()}</p>
+                                                            <p class="mg-top">$${item.getProduct().getPriceOut()*item.getProduct().getpSale()}</p>
+                                                            <p>${item.getQuantity()}</p>
+                                                            <p class="mg-top">$${item.getProduct().getPriceOut()*item.getProduct().getpSale()
+                                                                                 *item.getQuantity()}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </c:forEach>
+
+
+                                            <div class="notice">
+
+                                                <div class="ip-checkout">
+                                                    <span>Total (${checkoutshop.getTotalCount()} products): </span>
+                                                    <span class="total">${checkoutshop.getTotalMoney()}$</span>
+
+                                                </div>
                                             </div>
-                                        </c:if>
+                                        </div>
                                     </c:if>
+                                </c:if>
 
-                                </c:forEach>
+                            </c:forEach>
 
 
 
 
-                                <div class="payment">
-                                    <h3>Payment methods : </h3>
-                                    <p>Payment on delivery</p>
-                                </div>
+                            <div class="payment">
+                                <h3>Payment methods : </h3>
+                                <p>Payment on delivery</p>
+                            </div>
 
-                                <div class="total-all">
-                                    <div class="text-wrap">
-                                        <div class="text">
-                                            <span>Total products: </span>
-                                            <span>${Math.round(sessionScope.checkoutMap.getTotalCountAllShop())}</span>
-                                        </div>
-                                        <div class="text">
-                                            <span>Total amount of goods: </span>
-                                            <span>$${sessionScope.checkoutMap.getTotalMoneyAllShop()}</span>
-                                        </div>
-
-                                        <div class="text">
-                                            <span>Transport fee: </span>
-                                            <span>$${pageScope.shipFee}</span>
-                                        </div>
-
-                                        <div class="text">
-                                            <span>Total payment: </span>
-                                            <span class="all-pay">$${sessionScope.checkoutMap.getTotalMoneyAllShop()+pageScope.shipFee}</span>
-                                        </div>
+                            <div class="total-all">
+                                <div class="text-wrap">
+                                    <div class="text">
+                                        <span>Total products: </span>
+                                        <span>${Math.round(sessionScope.checkoutMap.getTotalCountAllShop())}</span>
                                     </div>
-                                    <input type="hidden" name="addressShip" value="${requestScope.addressShipment.getAddressShipID()}" >
-                                    <input class="order" type="submit" name="action" value="Order" >
+                                    <div class="text">
+                                        <span>Total amount of goods: </span>
+                                        <span>$${sessionScope.checkoutMap.getTotalMoneyAllShop()}</span>
+                                    </div>
 
+                                    <div class="text">
+                                        <span>Transport fee: </span>
+                                        <span>$${pageScope.shipFee}</span>
+                                    </div>
+
+                                    <div class="text">
+                                        <span>Total payment: </span>
+                                        <span class="all-pay">$${sessionScope.checkoutMap.getTotalMoneyAllShop()+pageScope.shipFee}</span>
+                                    </div>
                                 </div>
+                                <input type="hidden" name="addressShip" value="${requestScope.addressShipment.getAddressShipID()}" >
+                                <input class="order" type="submit" name="action" value="Order" >
 
-                            </section>
-                        </c:if>
+                            </div>
+
+                        </section>
                     </c:if>
                 </c:if>
             </c:if>
+        </c:if>
 
-        </form>
-        <div class="card-body cart">
-            <div class="col-sm-12 empty-cart-cls text-center">
+    </form>
+    <div class="card-body cart">
+        <div class="col-sm-12 empty-cart-cls text-center">
 
 
-                <c:if test="${requestScope.message!=null}">
-                    <c:if test="${not empty requestScope.message}">
-                        <h3><strong>${requestScope.message}</strong></h3>
-                        <div><a href="HomePage.jsp" class="btn-empty" data-abc="true">continue shopping</a></div>
-                        <div><a href="order?action=historyorder" class="btn-empty" data-abc="true">view my order</a></div>
+            <c:if test="${requestScope.message!=null}">
+                <c:if test="${not empty requestScope.message}">
+                    <h3><strong>${requestScope.message}</strong></h3>
+                    <div><a href="HomePage.jsp" class="btn-empty" data-abc="true">continue shopping</a></div>
+                    <div><a href="order?action=historyorder" class="btn-empty" data-abc="true">view my order</a></div>
 
-                    </c:if>
                 </c:if>
-            </div>
+            </c:if>
         </div>
+    </div>
 
-        <!-- cart end -->
+    <!-- cart end -->
 
 
 
-        <!-- footer section start  -->
-        <%@include file="pageFooter.jsp" %>
-        <!-- footer section end  -->
+    <!-- footer section start  -->
+    <%@include file="pageFooter.jsp" %>
+    <!-- footer section end  -->
 
-        <script src="js/script.js"></script>
-    </body>
+    <script src="js/script.js"></script>
+</body>
 </html>

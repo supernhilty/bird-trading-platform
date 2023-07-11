@@ -109,7 +109,7 @@
                     </thead>
                     <tbody>
                         <c:forEach var="orderdetail" items="${requestScope.orderDetailList}">
-                        <form action="feedback">
+                        <form action="feedback" method="post">
                             <tr>
                                 <td>
                                     <img src="${orderdetail.getProduct().getImg()}" alt="" />
